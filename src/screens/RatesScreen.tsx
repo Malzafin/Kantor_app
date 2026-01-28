@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, Alert, Button } from 'react-native';
 import { fetchCurrentRates, type RateItem } from '../api/rates';
 
-export default function RatesScreen({ navigation }: any) {
+export default function RatesScreen({ navigation }: { navigation: any }) {
     const [data, setData] = useState<RateItem[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -21,7 +21,7 @@ export default function RatesScreen({ navigation }: any) {
 
     if (loading) {
         return (
-            <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <ActivityIndicator />
                 <Text>Ładowanie kursów…</Text>
             </View>
@@ -29,26 +29,28 @@ export default function RatesScreen({ navigation }: any) {
     }
 
     return (
-        <View style={{ flex:1, padding:16 }}>
+        <View style={{ flex: 1, padding: 16 }}>
+            {/* przyciski nawigacji */}
+            <View style={{ marginBottom: 8 }}>
+                <Button title="Kursy archiwalne" onPress={() => navigation.navigate('History')} />
+            </View>
+
             <FlatList
                 data={data}
                 keyExtractor={(it) => it.pair}
                 renderItem={({ item }) => (
-                    <View style={{ paddingVertical:12, borderBottomWidth:1, borderColor:'#eee' }}>
-                        <Text style={{ fontWeight:'700' }}>{item.pair}</Text>
+                    <View style={{ paddingVertical: 12, borderBottomWidth: 1, borderColor: '#eee' }}>
+                        <Text style={{ fontWeight: '700' }}>{item.pair}</Text>
                         <Text>Kupno: {item.buy}  |  Sprzedaż: {item.sell}</Text>
-                        <Text style={{ color:'#666' }}>Data: {item.date}</Text>
+                        <Text style={{ color: '#666' }}>Data: {item.date}</Text>
                     </View>
                 )}
-                ListFooterComponent={
-                    <View style={{ flex:1, justifyContent:'center', alignItems:'center', gap:12, padding:16}}>
-                        <Button
-                            title="Przejdź do Portfela"
-                            onPress={() => navigation.navigate('Wallet')}
-                        />
-                    </View>
-                }
             />
+
+            {/* przycisk do portfela pod listą */}
+            <View style={{ marginTop: 12 }}>
+                <Button title="Przejdź do Portfela" onPress={() => navigation.navigate('Wallet')} />
+            </View>
         </View>
     );
 }

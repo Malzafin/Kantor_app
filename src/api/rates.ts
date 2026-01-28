@@ -1,6 +1,6 @@
 export type RateItem = { pair: string; buy: number; sell: number; date: string };
 
-// Tymczasowo: NBP → później podmienimy na API
+// Tymczasowo: NBP
 const NBP_URL = 'https://api.nbp.pl/api/exchangerates/tables/A?format=json';
 
 // stała marża kantoru – prosto i czytelnie

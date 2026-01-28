@@ -25,7 +25,7 @@ type Tx = {
 };
 
 export default function WalletScreen() {
-    // portfel (mock)
+    // portfel
     const [pln, setPln] = useState(0);
     const [balances, setBalances] = useState<Record<Currency, number>>({ USD: 0, EUR: 0, GBP: 0, CHF: 0 });
 
@@ -39,7 +39,7 @@ export default function WalletScreen() {
     const [amountStr, setAmountStr] = useState('');
     const [topupStr, setTopupStr] = useState('');
 
-    // 🔧 HISTORIA – MUSI BYĆ W ŚRODKU KOMPONENTU
+
     const [txs, setTxs] = useState<Tx[]>([]);
     const pushTx = (tx: Tx) => setTxs(prev => [tx, ...prev].slice(0, 50));
 
